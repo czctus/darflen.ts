@@ -4,14 +4,11 @@
 typescript library that interacts with the [Darflen](https://darflen.com/) API
 
 ## installation
-
 ```bash
-npm install --save darflen.ts 
+npm i darflen.ts 
 ```
 
 ## usage
-both commonjs and es module syntax are supported!
-
 ```typescript
 import { Darflen } from 'darflen.ts'; // or const { Darflen } = require('darflen.ts');
 
@@ -24,3 +21,9 @@ const darflen = new Darflen({
 | version | changes |
 |---------|---------|
 | 1.0.0   | initial release |
+
+## api
+### `client.posts`
+`client.posts.get(id: string): Post` - fetches an post by its id.
+
+`client.posts.feed(type: string, page: number): Page<Post>` - gets a list of posts from a specific feed (e.g, "explore")

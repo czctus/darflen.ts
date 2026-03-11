@@ -28,7 +28,7 @@ export class Post {
 
     public isOwned(): this is OwnedPost {
         const isOwned = this instanceof OwnedPost;
-        log(`do we own this post? %o`, isOwned);
+        log(`do we own this post? %s`, isOwned ? "yes" : "no");
         return isOwned;
     }
 
@@ -80,12 +80,23 @@ export class Posts {
     }
 
     /** fetches a post by its ID */
-    public async get(id: string): Promise<Post> {
-        const response = await this.http.get<APIPostResponse>(`/posts/${id}`)
-        if (isErrorResponse(response.data)) {
-            throw new Error(`got http ${response.status}, ${response.data.message} (${response.data.status})`);
-        }
-        return new Post(response.data.post, this.http, this.testInteraction);
+    public async get(id: string): Promise<Post> 
+    public async get(data: APIPostData): Promise<Post> 
+    public async get(idOrRaw: string | APIPostData): Promise<Post> {
+        const response = 
+            typeof idOrRaw === "string" ?
+                await this.http!.get<APIPostResponse>(`/posts/${idOrRaw}`).then((d) => {
+                    if (isErrorResponse(d.data)) {
+                        throw new Error(`got http ${d.status}, ${d.data.message} (${d.data.status})`);
+                    } else {
+                        return d.data.post;
+                    }
+                }) :
+                idOrRaw
+
+        if (this.client.profile?.id === response.author.id) {
+            return new OwnedPost(response, this.http, this.testInteraction);
+        } else return new Post(response, this.http, this.testInteraction);
     }
 
     constructor(

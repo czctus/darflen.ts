@@ -1,4 +1,4 @@
-import querystring from "node:querystring";
+import querystring from "querystring";
 import debug from "debug";
 
 import { debugNamespace, urlPaths } from "./constants.js";

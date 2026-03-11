@@ -7,19 +7,22 @@ export class DarflenClient {
     private http = httpclient.inherit();
     
     public posts = new Posts(this, this.http);
+    
     /** was an token passed OR by setting `client.token` */
     public authenticated = false;
     /** IF authenticated, this will contain the authenticated user's profile */
-    public profile: APIProfileData | null = null;
+    public profile?: APIProfileData;
 
-    private async authenticate(t: string) {
+    private authenticate(t: string) {
         this.setAuthorizationHeader(t);
-        this.http.get<APIProfileData>(urlPaths.routes.myself).then(profile => {
+        return this.http.get<APIProfileData>(urlPaths.routes.myself).then(profile => {
             if (profile.status === 200) {
                 this.profile = profile.data;
                 this.authenticated = true;
+            } else {
+                throw new Error(`authorization token might be wrong.. got status ${profile.status}`);
             }
-        })
+        });
     }
 
     private setAuthorizationHeader(t: string) {
@@ -32,16 +35,9 @@ export class DarflenClient {
         }
     }
 
-    set token(t: string) {
-        this.authenticate(t);
-    }
-
-    constructor(token: string)
-    constructor(options: { token: string })
-    constructor(tokenOrOptions: string | { token: string }) {
-        const token = typeof tokenOrOptions === "string" ? tokenOrOptions : tokenOrOptions.token;
-        if (token) {
-            this.authenticate(token);
-        }
+    /** set the token. will also set */
+    public login(t: string) {
+        if (t.startsWith("Bearer ")) t=t.split(" ")[0];
+        return this.authenticate(t);
     }
 }

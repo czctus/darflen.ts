@@ -1,22 +1,47 @@
+import { urlPaths } from "../constants.js";
 import { httpclient } from "../misc.js";
+import { APIProfileData } from "../types/api/profile.js";
 import { Posts } from "./posts.js";
 
 export class DarflenClient {
     private http = httpclient.inherit();
     
     public posts = new Posts(this, this.http);
+    /** was an token passed OR by setting `client.token` */
+    public authenticated = false;
+    /** IF authenticated, this will contain the authenticated user's profile */
+    public profile: APIProfileData | null = null;
+
+    private async authenticate(t: string) {
+        this.setAuthorizationHeader(t);
+        this.http.get<APIProfileData>(urlPaths.routes.myself).then(profile => {
+            if (profile.status === 200) {
+                this.profile = profile.data;
+                this.authenticated = true;
+            }
+        })
+    }
+
+    private setAuthorizationHeader(t: string) {
+        this.http.defaultProperties = {
+            ...this.http.defaultProperties,
+            headers: {
+                ...this.http.defaultProperties.headers,
+                authorization: `Bearer ${t}`
+            }
+        }
+    }
+
+    set token(t: string) {
+        this.authenticate(t);
+    }
 
     constructor(token: string)
     constructor(options: { token: string })
     constructor(tokenOrOptions: string | { token: string }) {
-        const defaults = this.http.defaultProperties;
-
-        if (typeof tokenOrOptions === "string") {
-            defaults.headers["authorization"] = `Bearer ${tokenOrOptions}`;
-        } else {
-            defaults.headers["authorization"] = `Bearer ${tokenOrOptions.token}`;
+        const token = typeof tokenOrOptions === "string" ? tokenOrOptions : tokenOrOptions.token;
+        if (token) {
+            this.authenticate(token);
         }
-
-        this.http.defaultProperties = defaults;
     }
 }

@@ -10,6 +10,7 @@ const log = debug(`${debugNamespace}:posts`);
 
 /** a darflen post */
 export class Post {
+    /** toggle love on/off */
     public async love() {
         this.testInteraction();
         await this.http!.post(`/posts/${this.data.id}/love`);
@@ -18,7 +19,7 @@ export class Post {
     /** 
      * loads the html page, which counts as a view.
      * 
-     * most interactions will also count as a view.
+     * most interactions will also count as a view, such as replying or loving..
      */
     public async view() {
         this.testInteraction();
@@ -26,7 +27,9 @@ export class Post {
     }
 
     public isOwned(): this is OwnedPost {
-        return this instanceof OwnedPost
+        const isOwned = this instanceof OwnedPost;
+        log(`do we own this post? %o`, isOwned);
+        return isOwned;
     }
 
     get loves() {
@@ -50,6 +53,7 @@ export class Post {
 }
 
 export class OwnedPost extends Post {
+    /** deletes the post. no undo! */
     public async delete() {
         this.testInteraction();
         await this.http!.post(`/posts/${this.data.id}/delete`);
@@ -83,8 +87,6 @@ export class Posts {
         }
         return new Post(response.data.post, this.http, this.testInteraction);
     }
-
-    public async
 
     constructor(
         private client: DarflenClient,

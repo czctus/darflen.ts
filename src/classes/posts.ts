@@ -10,6 +10,40 @@ const log = debug(`${debugNamespace}:posts`);
 
 /** a darflen post */
 export class Post {
+    public isOwned(): this is OwnedPost {
+        const isOwned = this instanceof OwnedPost;
+        log(`do we own this post? %s`, isOwned ? "yes" : "no");
+        return isOwned;
+    }
+
+    public isAuthenticated(): this is AuthenticatedPost {
+        const isAuth = this instanceof AuthenticatedPost;
+        log(`are we authorized to interact with this post? %s`, isAuth ? "yes" : "no");
+        return isAuth;
+    }
+
+    get loves() {
+        return this.data.stats.loves;
+    }
+
+    get replies() {
+        return this.data.stats.comments;
+    }
+
+    constructor(
+        public readonly data: APIPostData,
+        protected readonly http?: HTTP,
+        protected readonly testInteraction: (shouldThrow?: boolean) => { ok: boolean, error: string | null } = (shouldThrow: boolean = true) => {
+            if (shouldThrow) throw new Error("no http instance was provided");
+            return { ok: false, error: "no http instance was provided" }
+        },
+    ) {
+        log("created post %s", data.id);
+    }
+}
+
+/** should be used only if logged in */
+export class AuthenticatedPost extends Post {
     /** toggle love on/off */
     public async love() {
         this.testInteraction();
@@ -25,34 +59,9 @@ export class Post {
         this.testInteraction();
         await this.http!.get(`https://darflen.com/posts/${this.data.id}/view`);
     }
-
-    public isOwned(): this is OwnedPost {
-        const isOwned = this instanceof OwnedPost;
-        log(`do we own this post? %s`, isOwned ? "yes" : "no");
-        return isOwned;
-    }
-
-    get loves() {
-        return this.data.stats.loves;
-    }
-
-    get replies() {
-        return this.data.stats.comments;
-    }
-
-    constructor(
-        public data: APIPostData,
-        protected http?: HTTP,
-        protected testInteraction: (shouldThrow?: boolean) => { ok: boolean, error: string | null } = (shouldThrow: boolean = true) => {
-            if (shouldThrow) throw new Error("no http instance was provided");
-            return { ok: false, error: "no http instance was provided" }
-        },
-    ) {
-        log("created post %s", data.id);
-    }
 }
 
-export class OwnedPost extends Post {
+export class OwnedPost extends AuthenticatedPost {
     /** deletes the post. no undo! */
     public async delete() {
         this.testInteraction();
@@ -79,11 +88,19 @@ export class Posts {
         return response
     }
 
+    private generatePostInstance(data: APIPostData): Post {
+        if (this.client.profile?.id === data.author.id) {
+            return new OwnedPost(data, this.http, this.testInteraction);
+        } else if (this.client.authenticated) {
+            return new AuthenticatedPost(data, this.http, this.testInteraction);
+        } else return new Post(data, this.http, this.testInteraction);
+    }
+
     /** fetches a post by its ID */
-    public async get(id: string): Promise<Post> 
-    public async get(data: APIPostData): Promise<Post> 
+    public async get(id: string): Promise<Post>
+    public async get(data: APIPostData): Promise<Post>
     public async get(idOrRaw: string | APIPostData): Promise<Post> {
-        const response = 
+        const response =
             typeof idOrRaw === "string" ?
                 await this.http!.get<APIPostResponse>(`/posts/${idOrRaw}`).then((d) => {
                     if (isErrorResponse(d.data)) {
@@ -94,9 +111,7 @@ export class Posts {
                 }) :
                 idOrRaw
 
-        if (this.client.profile?.id === response.author.id) {
-            return new OwnedPost(response, this.http, this.testInteraction);
-        } else return new Post(response, this.http, this.testInteraction);
+        return this.generatePostInstance(response);
     }
 
     constructor(

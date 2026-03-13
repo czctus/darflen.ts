@@ -1,15 +1,15 @@
 import debug from "debug";
 
-import { DarflenClient } from "../index.js";
 import { isErrorResponse } from "../misc.js";
 import { APIPostData, APIPostResponse } from "../types/api/post.js";
 import { HTTP } from "./utils/http.js";
 import { debugNamespace } from "../constants.js";
+import { Subclass } from "./utils/subclass.js";
 
 const log = debug(`${debugNamespace}:posts`);
 
 /** a darflen post */
-export class Post {
+class Post {
     public isOwned(): this is OwnedPost {
         const isOwned = this instanceof OwnedPost;
         log(`do we own this post? %s`, isOwned ? "yes" : "no");
@@ -43,10 +43,10 @@ export class Post {
 }
 
 /** should be used only if logged in */
-export class AuthenticatedPost extends Post {
+class AuthenticatedPost extends Post {
     /** toggle love on/off */
     public async love() {
-        this.testInteraction();
+        //this.testInteraction();
         await this.http!.post(`/posts/${this.data.id}/love`);
     }
 
@@ -56,21 +56,21 @@ export class AuthenticatedPost extends Post {
      * most interactions will also count as a view, such as replying or loving..
      */
     public async view() {
-        this.testInteraction();
+        //this.testInteraction();
         await this.http!.get(`https://darflen.com/posts/${this.data.id}/view`);
     }
 }
 
-export class OwnedPost extends AuthenticatedPost {
+class OwnedPost extends AuthenticatedPost {
     /** deletes the post. no undo! */
     public async delete() {
-        this.testInteraction();
+        //this.testInteraction();
         await this.http!.post(`/posts/${this.data.id}/delete`);
     }
 }
 
 /** subclass group for posts */
-export class Posts {
+export class Posts extends Subclass {
     private testInteraction(shouldThrow: boolean = true): { ok: boolean, error: string | null } {
         const response = {
             ok: this.http !== undefined &&
@@ -89,7 +89,7 @@ export class Posts {
     }
 
     private generatePostInstance(data: APIPostData): Post {
-        if (this.client.profile?.id === data.author.id) {
+        if (this.client.user?.id === data.author.id) {
             return new OwnedPost(data, this.http, this.testInteraction);
         } else if (this.client.authenticated) {
             return new AuthenticatedPost(data, this.http, this.testInteraction);
@@ -113,9 +113,4 @@ export class Posts {
 
         return this.generatePostInstance(response);
     }
-
-    constructor(
-        private client: DarflenClient,
-        private http: HTTP,
-    ) { }
 }

@@ -9,6 +9,8 @@ const log = debug(`${debugNamespace}:users`)
 
 /** the user is not authenticated at all */
 class Profile {
+    get id() { return this.data.id; };
+
     get username() { return this.data.profile.username; };
     get displayName() { return this.data.profile.display_name; };
 
@@ -36,7 +38,10 @@ class AuthenticatedProfile extends Profile {
 }
 
 /** the authenticated user IS this user */
-class OwnedProfile extends Profile { // we do not extend authenticatedprofile, as those methods are not available to the profile owner. bad dx if showb.
+export class OwnedProfile extends Profile {
+    // this class does not extend authenticatedprofile, because all of the functions exposed on there cannot be used on your own profile
+    // also if we showed it, it would be bad dx...
+
     /** update your profile */
     public async update(options: {
         displayName?: string;
@@ -66,6 +71,8 @@ export class Users extends Subclass {
             return new AuthenticatedProfile(data, this.http);
         } else return new Profile(data);
     }
+
+    
 
     public async get(username: string) {
         

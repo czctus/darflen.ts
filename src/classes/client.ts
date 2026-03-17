@@ -3,22 +3,24 @@ import { urlPaths } from "../constants.js";
 import { httpclient } from "../misc.js";
 import { APIProfileData } from "../types/api/profile.js";
 import { Posts } from "./posts.js";
+import { OwnedProfile, Users } from "./profile.js";
 
 export class DarflenClient {
     private http = httpclient.inherit();
     
     public posts = new Posts(this, this.http);
+    public users = new Users(this, this.http);
     
     /** was an token passed OR by setting `client.token` */
     public authenticated = false;
     /** IF authenticated, this will contain the authenticated user's profile */
-    public user?: APIProfileData;
+    public user?: OwnedProfile;
 
     private authenticate(t: string) {
         this.setAuthorizationHeader(t);
         return this.http.get<APIProfileData>(urlPaths.routes.myself).then(profile => {
             if (profile.status === 200) {
-                this.user = profile.data;
+                this.user = new OwnedProfile(profile.data, this.http);
                 this.authenticated = true;
             } else {
                 throw new Error(`authorization token might be wrong.. got status ${profile.status}`);

@@ -17,6 +17,14 @@ class Profile {
     get description() { return this.data.profile.description; };
     get stats() { return this.data.stats; };
 
+    public isOwned(): this is OwnedProfile {
+        return this instanceof OwnedProfile;
+    }
+
+    public isAuthenticated(): this is AuthenticatedProfile {
+        return this instanceof AuthenticatedProfile;
+    }
+
     constructor(
         /** the raw profile data from the api */
         public readonly data: APIProfileData,
@@ -59,7 +67,12 @@ export class OwnedProfile extends Profile {
         if (blobBanner) form.append("banner", blobBanner, "banner.png");
         if (blobIcon) form.append("icon", blobIcon, "icon.png");
 
-        await this.http!.post(`/settings/customize`, form);
+        await this.http!.post(`/settings/customization`, form);
+    }
+
+    /** makes your account shown as online */
+    public async ping() {
+        await this.http!.post(`/activity`);
     }
 }
 

@@ -41,7 +41,7 @@ export class DarflenClient {
     /** set the token. if email and password is passed, it generates a new token */
     public async login(email: string, password: string): Promise<void>
     public async login(token: string): Promise<void>
-    public async login(t: string, password?: string) {
+    public async login(t: string, password?: string) { // todo i don't understand what i did in this function. perhaps fix it...
         let token;
 
         if (password) token = await authenticate(t, password) 

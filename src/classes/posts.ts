@@ -96,6 +96,14 @@ export class Posts extends Subclass {
         } else return new Post(data, this.http, this.testInteraction);
     }
 
+    public async create(text: string): Promise<Post>;
+    public async create(text: string, image: Buffer): Promise<Post>;
+    public async create(params: {
+        text?: string;
+        media?: (Blob | Buffer)[];
+        audience?: "public" | "private" | "unlisted" | ""
+    })
+
     /** fetches a post by its ID */
     public async get(id: string): Promise<Post>
     public async get(data: APIPostData): Promise<Post>

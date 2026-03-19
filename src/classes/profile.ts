@@ -85,8 +85,6 @@ export class Users extends Subclass {
         } else return new Profile(data);
     }
 
-    
-
     public async get(username: string) {
         
     }

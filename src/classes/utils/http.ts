@@ -2,6 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import debug from "debug";
 
 import { debugNamespace } from "../../constants.js";
+import { Status } from "../../enums.js";
+import { DarflenError } from "./error.js";
 
 const log = debug(`${debugNamespace}:http`);
 
@@ -11,6 +13,7 @@ interface DefaultProperties {
 }
 
 interface HTTPResponse<R = unknown> {
+    error?: unknown;
     status: number;
     statusText: string;
     headers: Record<string, string>;
@@ -30,7 +33,7 @@ export class HTTP {
         headers?: Record<string, string>,
         body?: unknown,
         params?: Record<string, string> // query parameters
-    }): Promise<HTTPResponse<R>> {
+    }, throwOnError = true): Promise<HTTPResponse<R>> {
         const url = new URL(params.url, this._defaultProperties.baseURL);
         const headers = { ...this._defaultProperties.headers, ...params.headers };
         const response = await axios({
@@ -42,16 +45,32 @@ export class HTTP {
             validateStatus: () => true,
         });
 
-        log("%s %s -> %d %s", params.method, url.toString(), response.status, response.statusText);
-        
+        const iserror = 
+            response.status >= 400 && response.status < 600
+            || response.status === 0
+            || (
+                response.data 
+                && typeof response.data === "object" 
+                && "code" in response.data
+                && response.data.code !== Status.Success
+            );
+        const error = iserror ? 
+            new DarflenError(
+                "message" in response.data ? response.data.message
+                    : `uhhhhhhhhhhhhhh`,
+            response.status) : undefined;
+
+        if (throwOnError && error) throw error;
+
         return {
+            error,
             status: response.status,
             statusText: response.statusText,
             headers: response.headers as Record<string, string>,
             data: response.data,
             raw: response
         };
-    };
+    }
 
     public get<R = unknown>(url: string | URL, headers?: Record<string, string>, params?: Record<string, string>) {
         return this.request<R>({ method: "GET", url, headers, params });

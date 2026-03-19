@@ -10,17 +10,59 @@ npm i darflen.ts
 
 ## usage
 ```typescript
-import { Darflen } from 'darflen.ts'; // or const { Darflen } = require('darflen.ts');
+import { DarflenClient } from 'darflen.ts'; // ...or const { Darflen } = require('darflen.ts');
 
-const darflen = new Darflen({
-    token: "your_api_token" // optional. you can also set it later via darflen.login("your_api_token")
-});
+const darflen = new DarflenClient();
+await darflen.login("token"); // ...or darflen.login("email", "password");
 ```
 
 ## version history
 | version | changes |
 |---------|---------|
 | 1.0.0   | initial release |
+
+## features
+note that not marked = not implemented but planned
+
+- [ ] posts
+    - [x] class for posts
+    - [x] get a post (by id)
+    - [ ] get post's reposts
+    - [ ] delete a post
+    - [ ] create/edit a post
+        - [ ] text
+        - [ ] image
+        - [ ] audience
+- [ ] users
+    - [x] class for users
+    - [x] get a user (by id/username)
+    - [x] follow/unfollow
+    - [x] block/unblock
+    - [x] ping /activity endpoint
+    - [ ] edit profile
+        - [x] display name
+        - [x] description
+        - [ ] username
+        - [ ] profile picture
+        - [ ] banner
+    - [ ] get followers/following
+    - [ ] get user's loves
+    - [ ] get user's communities
+    - [ ] get user's posts
+- [ ] admin (see [this issue](https://github.com/czctus/darflen.ts/issues/1))
+    - [ ] (un)ban user
+    - [ ] customize user profile
+        - [ ] display name
+        - [ ] description
+        - [ ] username
+        - [ ] profile picture
+        - [ ] banner
+- [ ] comments/replies
+- [ ] notifications
+- [ ] communities
+    - [ ] class for communities
+    - [ ] get a community (by id/name)
+
 
 ## api
 ### `client.posts`

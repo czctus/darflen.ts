@@ -23,12 +23,15 @@ await darflen.login("token"); // ...or darflen.login("email", "password");
 
 ## features
 note that not marked = not implemented but planned
-
+- [ ] jsdoc comments
+    - [ ] references to the API documentation
+    - [ ] examples
 - [ ] posts
     - [x] class for posts
     - [x] get a post (by id)
     - [ ] get post's reposts
     - [ ] delete a post
+    - [ ] get feed
     - [ ] create/edit a post
         - [ ] text
         - [ ] image
@@ -39,6 +42,7 @@ note that not marked = not implemented but planned
     - [x] follow/unfollow
     - [x] block/unblock
     - [x] ping /activity endpoint
+    - [ ] reset password
     - [ ] edit profile
         - [x] display name
         - [x] description
@@ -50,19 +54,56 @@ note that not marked = not implemented but planned
     - [ ] get user's communities
     - [ ] get user's posts
 - [ ] admin (see [this issue](https://github.com/czctus/darflen.ts/issues/1))
+    - [ ] class for reports
+    - [ ] edit a ban reason
+    - [ ] discard token
+    - [ ] discard report
     - [ ] (un)ban user
+    - [ ] customize post
+        - [ ] text
+        - [ ] image
+        - [ ] audience
+    - [ ] customize community
+        - [ ] badges (verified, disabled)
     - [ ] customize user profile
         - [ ] display name
         - [ ] description
         - [ ] username
         - [ ] profile picture
         - [ ] banner
+        - [ ] badges (admin, bug hunter, verified)
 - [ ] comments/replies
+    - [ ] class for comments/replies
+    - [ ] get a comment/reply (by id)
+    - [ ] delete a comment/reply
+    - [ ] create/edit a comment/reply
+        - [ ] text
+        - [ ] image
+        - [ ] audience
 - [ ] notifications
+    - [ ] class for notifications
+    - [ ] get notifications
 - [ ] communities
     - [ ] class for communities
+    - [ ] get posts in a community
+    - [ ] get members of a community
+    - [ ] get loves of a community
+    - [ ] join/leave a community
     - [ ] get a community (by id/name)
-
+    - [ ] invite a user to a community
+    - [ ] transfer a community to another user
+    - [ ] customize/create a community
+        - [ ] name
+        - [ ] display name
+        - [ ] description
+        - [ ] profile picture
+        - [ ] banner
+        - [ ] visibility (public/private)
+        - [ ] external links
+    - [ ] community admin features
+        - [ ] set rank
+        - [ ] delete post
+        - [ ] kick/ban user
 
 ## api
 ### `client.posts`

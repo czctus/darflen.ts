@@ -1,3 +1,4 @@
+import { UserStatus } from "../../enums.js";
 import { APIResponse } from "./request.js"
 
 export type APIProfileResponse = APIResponse<APIProfileData>;
@@ -37,12 +38,12 @@ export interface APIProfileUserData<FromProfile = true> {
     description: string;
     images: {
         banner: APIProfileImageData;
-        avatar: APIProfileImageData;
+        icon: APIProfileImageData;
     }
     // odd bug! api won't send links unless its directly from the profile endpoint
     // example: if you get profile data from a post, it won't include links, but if you get it from the profile endpoint, it will. so we have to make this conditional!
     links?: FromProfile extends true ? APIProfileLinkData[] : APIProfileLinkData[] | undefined; 
-    status: "active" | "offline" | "inactive";
+    status: `${UserStatus}`;
 }
 
 export interface APIProfileData<FromProfile = true> {

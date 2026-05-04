@@ -1,15 +1,25 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "nodenext",
+    "module": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": "src",
-    "outDir": "dist",
     "moduleResolution": "NodeNext",
-    "declaration": true
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "darflen.ts": [
+        "./src/index.ts"
+      ],
+      "darflen.ts/*": [
+        "./src/*"
+      ]
+    }
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }

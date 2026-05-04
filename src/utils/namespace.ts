@@ -1,7 +1,7 @@
 import { DarflenClient } from "../client.js";
 import { HTTP } from "./http.js";
 
-export class Subclass {
+export class Namespace {
     constructor(
         protected readonly client: DarflenClient,
         protected readonly http: HTTP,

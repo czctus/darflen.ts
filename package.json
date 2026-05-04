@@ -1,9 +1,13 @@
 {
   "name": "darflen.ts",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "package for interacting with the darflen api",
   "keywords": [
-    "darflen"
+    "darflen",
+    "typescript",
+    "api",
+    "client",
+    "library"
   ],
   "homepage": "https://github.com/czctus/darflen.ts#readme",
   "bugs": {
@@ -17,23 +21,44 @@
   "author": "czctus",
   "type": "module",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./enums": {
+      "types": "./dist/enums.d.ts",
+      "import": "./dist/enums.js"
+    }
+  },
   "scripts": {
-    "build": "shx rm -rf dist && tsc"
+    "prebuild:version": "cross-var shx echo \"export const version = 'v$npm_package_version';\" > src/version.ts",
+    "build:ts": "shx rm -rf dist && tsc -p tsconfig.build.json",
+    "prebuild": "npm run prebuild:version",
+    "build": "npm run build:ts",
+    "test": "mocha --recursive --timeout 10000"
   },
   "dependencies": {
     "axios": "^1.13.6",
     "debug": "^4.4.3",
+    "lru-cache": "^11.3.5",
     "querystring": "^0.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@eslint/markdown": "^7.5.1",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^25.5.0",
+    "cross-var": "^1.1.0",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "mocha": "^11.7.5",
     "shx": "^0.4.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0"
   }

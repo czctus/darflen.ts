@@ -1,13 +1,14 @@
 import querystring from "querystring";
-import debug from "debug";
 
-import { debugNamespace, urlPaths } from "./constants.js";
-import { httpclient, isErrorResponse } from "./misc.js";
 import { APILoginResponse } from "./types/api/authentication.js";
 
-const log = debug(`${debugNamespace}:authentication`);
+import { httpclient, isErrorResponse } from "./misc.js";
+import { urlPath } from "./utils/paths.js";
+import { debugLoggers } from "./utils/debug.js";
 
-interface RegisterParams {
+const log = debugLoggers.authentication;
+
+interface RegisterParams { // todo move to types/lib/authentication.ts
     email: string,
     username: string,
     password: string,
@@ -40,7 +41,7 @@ export async function authenticate(...params: [string, string] | [{ email: strin
     if (!email || !password) throw new Error("email and password are required!");
 
     const response = await httpclient.request<APILoginResponse>({
-        url: urlPaths.routes.login,
+        url: urlPath.auth.login(),
         method: "POST",
         params: {
             email,
@@ -72,9 +73,8 @@ export async function register(params: RegisterParams): Promise<string> {
     if (!email || !username || !password || !birthdate) throw new Error("email, username, password and birthdate are required!");
 
     const formattedBirthdate = birthdate instanceof Date ? birthdate : new Date(birthdate.year, birthdate.month - 1, birthdate.day);
-
     const response = await httpclient.request<APILoginResponse>({
-        url: urlPaths.routes.register,
+        url: urlPath.auth.register(),
         method: "POST",
         body: querystring.stringify({
             email,

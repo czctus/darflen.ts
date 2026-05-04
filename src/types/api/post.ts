@@ -1,15 +1,25 @@
+import { Audience, FeedType } from "../../enums.js";
 import { APIProfileData } from "./profile.js";
-import { APIResponse } from "./request.js";
+import { APIResponse, APISuccessResponse } from "./request.js";
+
+export type PrimitiveAudience = Audience | `${Audience}`;
+export type PrimitiveFeedType = FeedType | `${FeedType}`;
 
 export type APIPostResponse = APIResponse<{ post: APIPostData }>;
+export type APISuccessfulAggregatedPostsResponse = APISuccessResponse<{ posts: APIPostData[] }>;
+export type APIPostCreateResponse = APIResponse<APIPostCreateData>;
 export type APIPostMedia = APIPostImageData | APIPostVideoData | APIPostAudioData;
+
+export interface APIPostCreateData {
+    post_id: string;
+    user_posts: number; // represents the amount of posts the user has made, including the one just created
+}
 
 export interface APIPostImageData {
     type: "image";
     thumbnail: string;
     medium?: string;
     large?: string;
-    small?: string; // todo, fact check this. i dunno if the api actually returns this.
 }
 
 export interface APIPostVideoData {
@@ -53,7 +63,7 @@ export interface APIPostData {
     id: string;
     content: string;
     files: APIPostMedia[];
-    audience: "public" | "followers" | "private" | "unlisted";
+    audience: `${Audience}`;
     edited: boolean;
     pinned: boolean;
     /** whether or not this post can be replied to */

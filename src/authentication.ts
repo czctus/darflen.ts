@@ -1,5 +1,3 @@
-import querystring from "querystring";
-
 import { APILoginResponse } from "./types/api/authentication.js";
 
 import { httpclient, isErrorResponse } from "./misc.js";
@@ -73,18 +71,20 @@ export async function register(params: RegisterParams): Promise<string> {
     if (!email || !username || !password || !birthdate) throw new Error("email, username, password and birthdate are required!");
 
     const formattedBirthdate = birthdate instanceof Date ? birthdate : new Date(birthdate.year, birthdate.month - 1, birthdate.day);
+    const bodyParams: Record<string, string> = {
+        email,
+        username,
+        password,
+        day: formattedBirthdate.getDate().toString(),
+        month: (formattedBirthdate.getMonth() + 1).toString(),
+        year: formattedBirthdate.getFullYear().toString()
+    };
+    if (referralCode) bodyParams.referralCode = referralCode; 
+
     const response = await httpclient.request<APILoginResponse>({
         url: urlPath.auth.register(),
         method: "POST",
-        body: querystring.stringify({
-            email,
-            username,
-            password,
-            referralCode,
-            day: formattedBirthdate.getDate(),
-            month: formattedBirthdate.getMonth() + 1,
-            year: formattedBirthdate.getFullYear()
-        }),
+        body: new URLSearchParams(bodyParams).toString()
     });
 
     if (isErrorResponse(response.data)) {

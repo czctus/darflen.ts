@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "prebuild:version": "cross-var shx echo \"export const version = 'v$npm_package_version';\" > src/version.ts",
+    "prebuild:version": "tsx -e \"import fs from 'fs'; fs.writeFileSync('src/version.ts', `export const version = '${process.env.npm_package_version}';\\n`);\"",
     "build:ts": "shx rm -rf dist && tsc -p tsconfig.build.json",
     "prebuild": "npm run prebuild:version",
     "build": "npm run build:ts",
@@ -50,7 +50,6 @@
     "@eslint/markdown": "^7.5.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.5.0",
-    "cross-var": "^1.1.0",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
     "jiti": "^2.6.1",

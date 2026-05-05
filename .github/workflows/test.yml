@@ -10,6 +10,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DARFLEN_EMAIL: ${{ secrets.DARFLEN_EMAIL }}
+      DARFLEN_PASSWORD: ${{ secrets.DARFLEN_PASSWORD }}
 
     strategy:
       matrix:

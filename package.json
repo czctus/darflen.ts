@@ -37,8 +37,8 @@
   "scripts": {
     "prebuild:version": "tsx -e \"import fs from 'fs'; fs.writeFileSync('src/version.ts', `export const version = '${process.env.npm_package_version}';\\n`);\"",
     "build:ts": "shx rm -rf dist && tsc -p tsconfig.build.json",
-    "prebuild": "npm run prebuild:version",
-    "build": "npm run build:ts",
+    "prebuild": "pnpm run prebuild:version",
+    "build": "pnpm run build:ts",
     "test": "mocha --recursive --timeout 10000"
   },
   "dependencies": {

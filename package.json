@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "prebuild:version": "shx echo \"export const version = '$npm_package_version';\" > src/version.ts",
+    "prebuild:version": "genversion --esm src/version.ts",
     "build:ts": "shx rm -rf dist && tsc -p tsconfig.build.json",
     "prebuild": "pnpm run prebuild:version",
     "build": "pnpm run build:ts",
@@ -51,6 +51,7 @@
     "@types/mocha": "^10.0.10",
     "@types/node": "^25.5.0",
     "eslint": "^10.0.3",
+    "genversion": "^3.2.0",
     "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "mocha": "^11.7.5",

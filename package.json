@@ -35,7 +35,7 @@
     }
   },
   "scripts": {
-    "prebuild:version": "tsx -e \"import fs from 'fs'; fs.writeFileSync('src/version.ts', `export const version = '${process.env.npm_package_version}';\\n`);\"",
+    "prebuild:version": "shx echo \"export const version = '$npm_package_version';\" > src/version.ts",
     "build:ts": "shx rm -rf dist && tsc -p tsconfig.build.json",
     "prebuild": "pnpm run prebuild:version",
     "build": "pnpm run build:ts",

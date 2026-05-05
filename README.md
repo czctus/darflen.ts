@@ -1,5 +1,5 @@
 # darflen.ts
-![TypeScript](https://img.shields.io/badge/typescript-5.2-blue.svg) 
+![TypeScript](https://img.shields.io/badge/typescript-5.9-blue.svg) 
 
 typescript library that interacts with the [Darflen](https://darflen.com/) API
 

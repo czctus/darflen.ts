@@ -94,7 +94,7 @@ export class AuthenticatedPost extends Post {
     /** toggle love on/off */
     public async toggleLove(refresh: boolean = true) { // todo, move to posts namespace 
         //this.testInteraction();
-        await this.http.post(urlPath.post.love(this.data.id));
+        await this.client.posts.toggleLove(this.data.id);
         if (refresh) await this.refresh();
     }
 

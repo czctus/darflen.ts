@@ -151,4 +151,9 @@ export class Posts extends Namespace {
         await this.http.post(urlPath.post.pin(id));
         log(`toggled pin for post with id %s...`, id);
     }
+
+    public async toggleLove(id: string): Promise<void> {
+        await this.http.post(urlPath.post.love(id));
+        log(`toggled love for post with id %s...`, id);
+    }
 }

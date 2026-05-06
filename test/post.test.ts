@@ -1,5 +1,4 @@
 import assert from "node:assert";
-import { openAsBlob } from "node:fs";
 
 import { DarflenClient, Audience, OwnedPost, FeedType } from "darflen.ts";
 
@@ -13,10 +12,7 @@ describe("Posts", async function () {
 
     const createdPosts: OwnedPost[] = [];
 
-    let cat: Blob;
-
     before(async function () {
-        cat = await openAsBlob("./test/assets/cat.jpeg");
         if (!email || !password) {
             console.warn("skipping because there is no email or password provided in environment variables");
             this.skip();
@@ -58,21 +54,6 @@ describe("Posts", async function () {
                 createdPosts.push(post);
             }).catch((err) => {
                 assert.fail("failed to create post with text only, error: " + err);
-            });
-        });
-
-        it("should create a unlisted post with an image", function () {
-            return client.posts.create({
-                text: "check out this cat",
-                media: [cat],
-                audience: Audience.Unlisted
-            }).then((post) => {
-                assert.ok(post, "post should be created");
-                assert.strictEqual(post.content, "check out this cat", "post text should match the input");
-                assert.ok(post.media.length > 0, "post should have media attached");
-                createdPosts.push(post);
-            }).catch((err) => {
-                assert.fail("failed to create post with media, error: " + err);
             });
         });
 

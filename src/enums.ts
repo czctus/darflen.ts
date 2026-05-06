@@ -34,7 +34,9 @@ export enum FeedType {
     /** the feed will be sorted by loves (most liked first) */
     Loves = "loved",
     /** the feed will be sorted by views (most viewed first) */
-    Views = "popular"
+    Views = "popular",
+    /** the feed will be sorted by following (posts from users you follow) */
+    Following = "following"
 }
 
 export enum NotificationType {

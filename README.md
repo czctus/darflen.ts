@@ -72,6 +72,7 @@ note that not marked = not implemented but planned
         - [x] loved
         - [x] trending
         - [x] popular
+        - [x] following
     - [x] create
         - [x] repost
         - [x] edit

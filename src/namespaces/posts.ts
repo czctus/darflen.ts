@@ -4,7 +4,7 @@ import { DefaultPageOptions } from "../types/lib/client.js";
 
 import { urlPath } from "../utils/paths.js";
 import { isErrorResponse } from "../misc.js";
-import { Audience } from "../enums.js";
+import { Audience, FeedType } from "../enums.js";
 import { Namespace } from "../utils/namespace.js"
 import { OwnedPost, Post } from "../structures/post.js";
 import { Page } from "../utils/page.js";
@@ -140,7 +140,8 @@ export class Posts extends Namespace {
 
     public async getFeed(feed: PrimitiveFeedType, args?: DefaultPageOptions): Promise<Page<Post>> {
         const getPosts = async (page: number) => {
-            const d = await this.http.get<APISuccessfulAggregatedPostsResponse>(urlPath.post.feed(feed, page, args?.limit));
+            const url = feed === FeedType.Following ? urlPath.post.followingFeed(page, args?.limit) : urlPath.post.feed(feed, page, args?.limit);
+            const d = await this.http.get<APISuccessfulAggregatedPostsResponse>(url);
             return d.data.posts.map((p) => Post.create(p, this.http, this.client));
         }
 

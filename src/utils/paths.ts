@@ -10,6 +10,7 @@ export const urlPath = {
         delete: (id: string) => `/posts/${id}/delete`,
         edit: (id: string) => `/posts/${id}/edit`,
         feed: (feedType: PrimitiveFeedType, page: number, size?: number) => `/explore/${feedType}/get/${page}${size ? `/${size}` : ""}`,
+        followingFeed: (page: number, size?: number) => `/feed/get/${page}${size ? `/${size}` : ""}`,
         reposts: (id: string, page: number, size?: number) => `/posts/${id}/reposts/${page}${size ? `/${size}` : ""}`
     },
     polls: {

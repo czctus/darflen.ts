@@ -1,9 +1,22 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "mocha"],
+    "types": [
+      "node",
+      "mocha"
+    ],
     "declaration": false,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "darflen.ts": [
+        "./src/index.ts"
+      ],
+      "darflen.ts/*": [
+        "./src/*"
+      ]
+    }
   },
-  "include": ["./**/*"]
+  "include": [
+    "./**/*"
+  ]
 }

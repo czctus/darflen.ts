@@ -9,15 +9,7 @@
     "moduleResolution": "NodeNext",
     "types": [
       "node"
-    ],
-    "paths": {
-      "darflen.ts": [
-        "./src/index.ts"
-      ],
-      "darflen.ts/*": [
-        "./src/*"
-      ]
-    }
+    ]
   },
   "include": [
     "src/**/*"

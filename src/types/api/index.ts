@@ -1,5 +1,5 @@
-export * from "./authentication.js";
-export * from "./post.js";
-export * from "./profile.js";
-export * from "./request.js"
-export * from "./statistics.js";
+export type * from "./authentication.js";
+export type * from "./post.js";
+export type * from "./profile.js";
+export type * from "./request.js"
+export type * from "./statistics.js";

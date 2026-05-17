@@ -1,6 +1,3 @@
-import { APIPostData } from "../types/api/post.js";
-import { BasePacket, NoPollPacket } from "../types/lib/posts.js";
-
 import { Profile } from "../structures/profile.js";
 import { MediaFile } from "../utils/media.js";
 import { darflenSite } from "../constants.js";
@@ -10,6 +7,9 @@ import { urlPath } from "../utils/paths.js";
 import { DarflenURL } from "../misc.js";
 import { Poll } from "./poll.js";
 import { debugLoggers } from "../utils/debug.js";
+
+import type { APIPostData } from "../types/api/post.js";
+import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
 
 const log = debugLoggers.posts;
 

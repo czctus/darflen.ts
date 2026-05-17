@@ -1,4 +1,4 @@
-import { AggregatedResponse, APIResponse } from "./request.js";
+import type { AggregatedResponse, APIResponse } from "./request.js";
 
 export type APILoginResponse = APIResponse<APILoginResponseData>;
 export type APILoginFailResponse = AggregatedResponse<"email" | "password">;

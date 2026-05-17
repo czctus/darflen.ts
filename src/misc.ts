@@ -1,7 +1,8 @@
-import { APIFailResponse, APIResponse } from "./types/api/request.js";
 import { HTTP } from "./utils/http.js";
 import { darflenRoot } from "./constants.js";
 import { version } from "./version.js"; // this will not be found unless you ran `npm run build` at least once! this is intentional.
+
+import type { APIFailResponse, APIResponse } from "./types/api/request.js";
 
 const isBrowser = typeof window !== "undefined" || (typeof process === "undefined" || !process.version);
 

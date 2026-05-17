@@ -1,4 +1,4 @@
-import { PrimitiveFeedType } from "../types/api/post.js";
+import type { PrimitiveFeedType } from "../types/api/post.js";
 
 export const urlPath = {
     post: {

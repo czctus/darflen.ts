@@ -1,9 +1,9 @@
-import { APIProfileData } from "../types/api/profile.js";
-
 import { Profile } from "../structures/profile.js";
 import { urlPath } from "../utils/paths.js";
 import { Namespace } from "../utils/namespace.js";
 import { debugLoggers } from "../utils/debug.js";
+
+import type { APIProfileData } from "../types/api/profile.js";
 
 const log = debugLoggers.profiles;
 

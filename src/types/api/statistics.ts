@@ -1,4 +1,4 @@
-import { APISuccessResponse } from "./request.js";
+import type { APISuccessResponse } from "./request.js";
 
 export type ChartFormat<Children extends string> = {
     [key in Children]: number[];

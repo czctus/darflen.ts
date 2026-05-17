@@ -1,7 +1,3 @@
-import { BasePacket, NoPollPacket } from "../types/lib/posts.js";
-import { APIPostCreateResponse, APIPostData, APIPostResponse, APISuccessfulAggregatedPostsResponse, PrimitiveAudience, PrimitiveFeedType } from "../types/api/post.js";
-import { DefaultPageOptions } from "../types/lib/client.js";
-
 import { urlPath } from "../utils/paths.js";
 import { isErrorResponse } from "../misc.js";
 import { Audience, FeedType } from "../enums.js";
@@ -10,6 +6,10 @@ import { OwnedPost, Post } from "../structures/post.js";
 import { Page } from "../utils/page.js";
 import { Profile } from "../structures/profile.js";
 import { debugLoggers } from "../utils/debug.js";
+
+import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
+import type { APIPostCreateResponse, APIPostData, APIPostResponse, APISuccessfulAggregatedPostsResponse, PrimitiveAudience, PrimitiveFeedType } from "../types/api/post.js";
+import type { DefaultPageOptions } from "../types/lib/client.js";
 
 const log = debugLoggers.posts
 

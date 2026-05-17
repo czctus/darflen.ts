@@ -1,8 +1,8 @@
-import { APILoginResponse } from "./types/api/authentication.js";
-
 import { httpclient, isErrorResponse } from "./misc.js";
 import { urlPath } from "./utils/paths.js";
 import { debugLoggers } from "./utils/debug.js";
+
+import type { APILoginResponse } from "./types/api/authentication.js";
 
 const log = debugLoggers.authentication;
 

@@ -23,7 +23,9 @@ export const urlPath = {
         posts: (username: string, page: number, size?: number) => `/users/${username}/posts/${page}${size ? `/${size}` : ""}`,
         follow: (username: string) => `/users/${username}/follow`,
         block: (username: string) => `/users/${username}/block`,
-        myself: () => `/me`
+        myself: () => `/me`,
+        deactivate: () => `/settings/deactivate`,
+        reactivate: () => `/settings/reactivate`
     },
     auth: {
         login: () => `/auth/login`,

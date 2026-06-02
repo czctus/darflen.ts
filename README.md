@@ -87,6 +87,7 @@ note that not marked = not implemented but planned
     - [x] block / unblock
     - [x] ping activity endpoint
     - [x] reset password
+    - [x] deactivate / reactivate account
     - [x] edit profile
         - [x] display name
         - [x] description

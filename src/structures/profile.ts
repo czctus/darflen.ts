@@ -284,4 +284,14 @@ export class OwnedProfile extends Profile {
 
         await this.http.post(urlPath.auth.updatePassword(), form);
     }
+
+    /** 
+     * disables/enables your account.
+     * 
+     * this will hide you from leaderboard and prevent requests (apart from setting account active again)
+     */
+    public async setAccountActivated(activated: boolean): Promise<void> {
+        const url = activated ? urlPath.user.reactivate() : urlPath.user.deactivate();
+        await this.http.post(url);
+    }
 }

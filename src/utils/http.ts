@@ -92,6 +92,7 @@ export class HTTP {
             data: params.body,
             params: params.params,
             validateStatus: () => true,
+            ...params.axiosConfig
         });
 
         const iserror =

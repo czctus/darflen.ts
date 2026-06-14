@@ -4,13 +4,18 @@ import type { APIPostAudioData, APIPostImageData, APIPostMedia, APIPostVideoData
 
 export abstract class MediaFile {
     protected fetchMedia(url: string): Promise<Blob> {
-        return this.http.request<Blob>({
+        return this.http.request<Buffer>({
             method: "GET",
             url,
             axiosConfig: {
-                responseType: "blob"
+                responseType: "arraybuffer"
             }
-        }).then(res => res.data);
+        }).then(res => {
+            console.log(typeof res, typeof res.data);
+            return new Blob([Buffer.from(res.data)], {
+                type: res.headers["content-type"] || undefined
+            });
+        });
     }
 
     public isAudio(): this is AudioMediaFile {

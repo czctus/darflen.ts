@@ -11,7 +11,6 @@ export abstract class MediaFile {
                 responseType: "arraybuffer"
             }
         }).then(res => {
-            console.log(typeof res, typeof res.data);
             return new Blob([Buffer.from(res.data)], {
                 type: res.headers["content-type"] || undefined
             });

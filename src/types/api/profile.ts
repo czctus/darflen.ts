@@ -42,7 +42,7 @@ export interface APIProfileUserData<FromProfile = true> {
     }
     // odd bug! api won't send links unless its directly from the profile endpoint
     // example: if you get profile data from a post, it won't include links, but if you get it from the profile endpoint, it will. so we have to make this conditional!
-    links?: FromProfile extends true ? APIProfileLinkData[] : APIProfileLinkData[] | undefined; 
+    links: FromProfile extends true ? APIProfileLinkData[] : APIProfileLinkData[] | undefined; 
     status: `${UserStatus}`;
 }
 

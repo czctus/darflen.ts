@@ -8,7 +8,7 @@ import type { APIProfileData } from "../types/api/profile.js";
 
 /** the user is not authenticated at all */
 export class Profile {
-    private _data!: APIProfileData;
+    private _data!: APIProfileData<boolean>;
     private _media?: {
         avatar: ImageMediaFile;
         banner: ImageMediaFile;
@@ -27,7 +27,7 @@ export class Profile {
     get stats() { return this.data.stats; };
     get miscellaneous() { return this.data.miscellaneous; };
 
-    private setData(data: APIProfileData) {
+    private setData(data: APIProfileData<boolean>) {
         this._data = data;
         this._media = {
             avatar: MediaFile.create<ImageMediaFile>({
@@ -59,18 +59,18 @@ export class Profile {
     }
 
     static create(
-        data: APIProfileData,
+        data: APIProfileData<boolean>,
         http: HTTP,
         client: DarflenClient,
         owned: true // this is primarily used for just the client.user thing
     ): OwnedProfile
     static create(
-        data: APIProfileData,
+        data: APIProfileData<boolean>,
         http: HTTP,
         client: DarflenClient
     ): AuthenticatedProfile
     static create(
-        data: APIProfileData,
+        data: APIProfileData<boolean>,
         http: HTTP,
         client: DarflenClient,
         owned = false
@@ -84,7 +84,7 @@ export class Profile {
 
     constructor(
         /** the raw profile data from the api */
-        data: APIProfileData,
+        data: APIProfileData<boolean>,
         protected readonly http: HTTP,
         protected readonly client: DarflenClient
     ) {

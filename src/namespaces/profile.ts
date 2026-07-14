@@ -14,8 +14,8 @@ export class Users extends Namespace {
     }
 
     public get(id: string, isUsername?: boolean): Promise<Profile>;
-    public get(data: APIProfileData): Profile;
-    public get(idOrData: string | APIProfileData, isUsername = false): Promise<Profile> | Profile {
+    public get(data: APIProfileData<boolean>): Profile;
+    public get(idOrData: string | APIProfileData<boolean>, isUsername = false): Promise<Profile> | Profile {
         if (typeof idOrData === "string") {
             return this.getRaw(idOrData, isUsername).then((data) => Profile.create(data, this.http, this.client));
         } else {

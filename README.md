@@ -3,6 +3,14 @@
 
 typescript library that interacts with the [Darflen](https://darflen.com/) API
 
+## disclaimer
+
+> [!WARNING]
+> this project is not affiliated with, nor endorsed by, darflen or its developers; this is an independent project.
+
+> [!WARNING]
+> this repo is in initial development; everything is subjected to change, you are expected to watch out for breaking changes and update your code accordingly.
+
 ## installation
 ```bash
 # npm
@@ -21,7 +29,5 @@ const darflen = new DarflenClient();
 await darflen.login("token"); // ...or darflen.login("email", "password");
 ```
 
-## version history
-| version | changes |
-|---------|---------|
-| 0.1.0   | initial release |
+## license
+[MIT](LICENSE)

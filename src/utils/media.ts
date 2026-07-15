@@ -1,5 +1,4 @@
-import { HTTP } from "./http.js";
-
+import type { HTTP } from "./http.js";
 import type { APIPostAudioData, APIPostImageData, APIPostMedia, APIPostVideoData } from "../types/api/post.js";
 
 export abstract class MediaFile {

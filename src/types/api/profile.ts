@@ -1,5 +1,5 @@
-import { UserStatus } from "../../enums.js";
 import type { APIResponse } from "./request.js"
+import type { UserStatus } from "../../enums.js";
 
 export type APIProfileResponse = APIResponse<APIProfileData>;
 export interface APIProfileImageData {

@@ -1,16 +1,17 @@
-import { urlPath } from "../utils/paths.js";
-import { isErrorResponse } from "../misc.js";
-import { Audience, FeedType } from "../enums.js";
-import { Namespace } from "../utils/namespace.js"
-import { OwnedPost, Post } from "../structures/post.js";
-import { Page } from "../utils/page.js";
-import { Profile } from "../structures/profile.js";
-import { debugLoggers } from "../utils/debug.js";
-
 import type { PrimitiveAudience, PrimitiveFeedType } from "../enums.js";
-import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
-import type { APIPostCreateResponse, APIPostData, APIPostResponse, APISuccessfulAggregatedPostsResponse, PrimitiveAudience, PrimitiveFeedType } from "../types/api/post.js";
+import type { OwnedPost} from "../structures/post.js";
+import type { Profile } from "../structures/profile.js";
+import type { APIPostCreateResponse, APIPostData, APIPostResponse, APISuccessfulAggregatedPostsResponse } from "../types/api/post.js";
 import type { DefaultPageOptions } from "../types/lib/client.js";
+import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
+
+import { Audience, FeedType } from "../enums.js";
+import { isErrorResponse } from "../misc.js";
+import { Post } from "../structures/post.js";
+import { debugLoggers } from "../utils/debug.js";
+import { Namespace } from "../utils/namespace.js"
+import { Page } from "../utils/page.js";
+import { urlPath } from "../utils/paths.js";
 
 const log = debugLoggers.posts
 

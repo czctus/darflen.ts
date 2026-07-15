@@ -1,13 +1,14 @@
+import type { OwnedProfile} from "./structures/profile.js";
+import type { APIProfileData } from "./types/api/profile.js";
+
 import { authenticate } from "./authentication.js";
 import { httpclient } from "./misc.js";
 import { Posts } from "./namespaces/posts.js";
 import { Users } from "./namespaces/profile.js";
-import { OwnedProfile, Profile } from "./structures/profile.js";
+import { Profile } from "./structures/profile.js";
+import { debugLoggers } from "./utils/debug.js";
 import { urlPath } from "./utils/paths.js";
 import { version } from "./version.js";
-import { debugLoggers } from "./utils/debug.js";
-
-import type { APIProfileData } from "./types/api/profile.js";
 
 const log = debugLoggers.client;
 

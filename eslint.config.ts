@@ -1,15 +1,45 @@
 import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import-x";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import { defineConfig } from "eslint/config";
 
-export default defineConfig([
-  { 
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+export default tseslint.config(
+  {
     ignores: ["test/"],
-    plugins: { js },
-    extends: ["js/recommended"],
-    languageOptions: { globals: globals.node }
   },
-  tseslint.configs.recommended,
-]);
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
+    plugins: {
+      "import-x": importPlugin,
+    },
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      "import-x/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "type",
+          ],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+          fixStyle: "separate-type-imports", 
+          disallowTypeAnnotations: false
+        },
+      ],
+    },
+  }
+);

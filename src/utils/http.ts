@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
+
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { DarflenError } from "./error.js";
 import { Code } from "../enums.js";

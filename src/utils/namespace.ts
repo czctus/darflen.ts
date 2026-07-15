@@ -1,5 +1,5 @@
-import { DarflenClient } from "../client.js";
-import { HTTP } from "./http.js";
+import type { DarflenClient } from "../client.js";
+import type { HTTP } from "./http.js";
 
 export class Namespace {
     constructor(

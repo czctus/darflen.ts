@@ -1,8 +1,8 @@
-import { HTTP } from "../utils/http.js";
-import { urlPath } from "../utils/paths.js";
-import { Post } from "./post.js";
-
+import type { Post } from "./post.js";
 import type { APIPostPollData } from "../types/api/post.js";
+import type { HTTP } from "../utils/http.js";
+
+import { urlPath } from "../utils/paths.js";
 
 export class PollChoice {
     get data() { return this._data };

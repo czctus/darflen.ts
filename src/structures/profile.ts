@@ -1,10 +1,11 @@
-import { DarflenClient } from "../client.js";
-import { HTTP } from "../utils/http.js";
-import { urlPath } from "../utils/paths.js";
-import { Form } from "../utils/form.js";
-import { ImageMediaFile, MediaFile } from "../utils/media.js";
-
+import type { DarflenClient } from "../client.js";
 import type { APIProfileData } from "../types/api/profile.js";
+import type { HTTP } from "../utils/http.js";
+import type { ImageMediaFile} from "../utils/media.js";
+
+import { Form } from "../utils/form.js";
+import { MediaFile } from "../utils/media.js";
+import { urlPath } from "../utils/paths.js";
 
 /** the user is not authenticated at all */
 export class Profile {

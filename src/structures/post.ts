@@ -1,15 +1,15 @@
-import { Profile } from "../structures/profile.js";
-import { MediaFile } from "../utils/media.js";
+import type { DarflenClient } from "../client.js";
+import type { Profile } from "../structures/profile.js";
+import type { APIPostData } from "../types/api/post.js";
+import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
+import type { HTTP } from "../utils/http.js";
+
 import { darflenSite } from "../constants.js";
-import { HTTP } from "../utils/http.js";
-import { DarflenClient } from "../client.js";
-import { urlPath } from "../utils/paths.js";
 import { DarflenURL } from "../misc.js";
 import { Poll } from "./poll.js";
 import { debugLoggers } from "../utils/debug.js";
-
-import type { APIPostData } from "../types/api/post.js";
-import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
+import { MediaFile } from "../utils/media.js";
+import { urlPath } from "../utils/paths.js";
 
 const log = debugLoggers.posts;
 

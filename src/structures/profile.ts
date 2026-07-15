@@ -139,8 +139,7 @@ export class AuthenticatedProfile extends Profile {
 
 /** the authenticated user IS this user */
 export class OwnedProfile extends Profile {
-    // this class does not extend authenticatedprofile, because all of the functions exposed on there cannot be used on your own profile
-    // also if we showed it, it would be bad dx...
+    // doesn't extend authenticated profile because those functions are for OTHER users, and will throw if you use them on yourself
 
     /** 
      * Update your profile information.
@@ -148,8 +147,8 @@ export class OwnedProfile extends Profile {
      * @param options the profile fields to update
      * @param options.displayName your new display name (not unique)
      * @param options.description your new profile description
-     * @param options.banner your new profile banner image (accepted formats: png, jpg, gif, etc.)
-     * @param options.icon your new profile icon image (accepted formats: png, jpg, gif, etc.)
+     * @param options.banner your new profile banner image (accepted formats: png, jpeg, gif, webp)
+     * @param options.icon your new profile icon image (accepted formats: png, jpeg, gif, webp)
      * @remarks
      * - **Permission**: you must be authenticated to use this function, and the profile being updated must be your own.
      * - **Partial updates**: you can provide any subset of the above fields to update only those fields.
@@ -178,7 +177,7 @@ export class OwnedProfile extends Profile {
      * 
      * @since 1.0.0
      * @returns {Promise<void>}
-     **/ // todo list accepted formats for banner/icon. we know obviously png, jpg, and gif. what else?
+     **/
     public async update(options: {
         displayName?: string;
         description?: string;

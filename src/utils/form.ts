@@ -1,4 +1,7 @@
-/** exclusively meant to be used for the profile thing because darflen sux */
+/** 
+ * exclusively for updating the profile because the api has quite bad practices
+ * contributors, please do feel free to refactor this or find a better way
+*/
 export class Form {
     // i am so fed up with darflen
     private data: Array<Array<string>> = [];

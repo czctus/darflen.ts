@@ -44,7 +44,7 @@ export class Poll {
         private http: HTTP,
     ) {
         if (!this._post.data.poll) throw new Error("post does not contain a poll");
-        this._data = this._post.data.poll!; // we just checked that this exists, so we can safely assert that it is not undefined
+        this._data = this._post.data.poll!; // just checked; assert it's not undefined
         this._choices = this._data.options.map((option, index) => new PollChoice(option, this._post, index, this.http));
     }
 }

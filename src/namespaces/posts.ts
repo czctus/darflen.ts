@@ -27,7 +27,7 @@ function generatePacket(params: BasePacket): FormData {
         params.media.forEach((m, i) => {
             const data = m instanceof Blob ? m : m.data;
             const filename = m instanceof Blob ? `media_${i}` : m.filename;
-            packet.append(`files[]`, data, filename); // this is what the api expects.... seems a bit weird, but nothing we can do about it
+            packet.append(`files[]`, data, filename); // api expects this format
         });
     }
     if (params.poll) {
@@ -44,7 +44,7 @@ function generatePacket(params: BasePacket): FormData {
         packet.append("time", params.poll.expires.toString());
         params.poll.choices.forEach((c) => {
             log(`adding poll choice with text %s...`, c);
-            packet.append(`option[]`, c); // again the api expects this format!!! 
+            packet.append(`option[]`, c); // api expects this format
         })
     }
 
@@ -92,7 +92,7 @@ export class Posts extends Namespace {
 
         log(`created post with id %s...`, response);
 
-        return this.get(response, true); // we created this post, so obviously we own it.
+        return this.get(response, true); // we created this post; it is owned by us
     }
 
     public async edit(id: string, text: string): Promise<void>;
@@ -111,7 +111,7 @@ export class Posts extends Namespace {
     public async get(id: string): Promise<Post>;
     public async get(data: APIPostData, owned: true): Promise<OwnedPost>;
     public async get(data: APIPostData): Promise<Post>;
-    public async get(idOrRaw: string | APIPostData): Promise<Post> { // we drop the owned param here since it is just a hint for typescript. maybe bad idea? idk..
+    public async get(idOrRaw: string | APIPostData): Promise<Post> { // dropped owned; it's only for typing
         const response = typeof idOrRaw === "string" ? await this.getRaw(idOrRaw) : idOrRaw
         log(`fetched post with id %s, local? %s...`, response.id, typeof idOrRaw === "string" ? "no" : "yes");
         return Post.create(response, this.http, this.client);

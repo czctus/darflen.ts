@@ -33,7 +33,7 @@ export class DarflenClient {
     private authenticate(t: string) {
         this.setAuthorizationHeader(t);
         return this.http.get<APIProfileData>(urlPath.user.myself()).then(profile => {
-            this._user = Profile.create(profile.data, this.http, this, true); // this kinda suxxxxxx but it works for now. maybe refactor later idk
+            this._user = Profile.create(profile.data, this.http, this, true); 
         });
     }
 

@@ -1,3 +1,6 @@
+export type PrimitiveAudience = Audience | `${Audience}`;
+export type PrimitiveFeedType = FeedType | `${FeedType}`;
+
 export enum Code {
     /** the api request was successful */
     Success = "success",

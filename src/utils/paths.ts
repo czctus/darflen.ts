@@ -1,10 +1,10 @@
-import type { PrimitiveFeedType } from "../types/api/post.js";
+import type { PrimitiveFeedType } from "../enums.js";
 
 export const urlPath = {
     post: {
         create: () => `/posts/create`,
         repost: (id: string) => `/posts/${id}/repost`,
-        data: (id: string) => `/posts/${id}`,
+        data: (id: string, render: boolean = false) => `/posts/${id}${render ? "/render" : ""}`,
         love: (id: string) => `/posts/${id}/love`,
         pin: (id: string) => `/posts/${id}/pin`,
         delete: (id: string) => `/posts/${id}/delete`,

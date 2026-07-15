@@ -1,4 +1,4 @@
-import type { PrimitiveAudience } from "../api/post.js";
+import type { PrimitiveAudience } from "../../enums.js";
 
 export type NoPollPacket = Omit<BasePacket, "poll">; 
 export interface BasePacket {

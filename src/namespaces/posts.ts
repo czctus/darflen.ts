@@ -7,6 +7,7 @@ import { Page } from "../utils/page.js";
 import { Profile } from "../structures/profile.js";
 import { debugLoggers } from "../utils/debug.js";
 
+import type { PrimitiveAudience, PrimitiveFeedType } from "../enums.js";
 import type { BasePacket, NoPollPacket } from "../types/lib/posts.js";
 import type { APIPostCreateResponse, APIPostData, APIPostResponse, APISuccessfulAggregatedPostsResponse, PrimitiveAudience, PrimitiveFeedType } from "../types/api/post.js";
 import type { DefaultPageOptions } from "../types/lib/client.js";

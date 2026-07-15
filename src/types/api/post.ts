@@ -1,9 +1,6 @@
-import type { Audience, FeedType } from "../../enums.js";
+import type { Audience } from "../../enums.js";
 import type { APIProfileData } from "./profile.js";
 import type { APIResponse, APISuccessResponse } from "./request.js";
-
-export type PrimitiveAudience = Audience | `${Audience}`;
-export type PrimitiveFeedType = FeedType | `${FeedType}`;
 
 export type APIPostResponse = APIResponse<{ post: APIPostData }>;
 export type APISuccessfulAggregatedPostsResponse = APISuccessResponse<{ posts: APIPostData[] }>;

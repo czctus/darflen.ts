@@ -41,10 +41,7 @@ export async function authenticate(...params: [string, string] | [{ email: strin
     const response = await httpclient.request<APILoginResponse>({
         url: urlPath.auth.login(),
         method: "POST",
-        params: {
-            email,
-            password
-        }
+        body: new URLSearchParams({ email, password }).toString()
     })
 
     if (isErrorResponse(response.data)) {

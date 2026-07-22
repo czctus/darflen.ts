@@ -17,9 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/czctus/darflen.ts.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "license": "MIT",
   "author": "czctus",
   "type": "module",

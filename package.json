@@ -1,5 +1,5 @@
 {
-  "name": "darflen.ts",
+  "name": "@czctus/darflen.ts",
   "version": "0.2.1",
   "description": "package for interacting with the darflen api",
   "keywords": [

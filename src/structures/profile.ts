@@ -236,7 +236,6 @@ export class OwnedProfile extends Profile {
      * @remarks
      * - **Permission**: you must be authenticated to use this function, and the profile being updated must be your own.
      * - **Refreshing**: after the update is successful, the profile data on this instance will be automatically refreshed to reflect the changes.
-     * - **Note**: changing your username does in fact change your profile ID as well, and it is not reversible (even if you change it back..)
      * 
      * @example
      * ```ts
